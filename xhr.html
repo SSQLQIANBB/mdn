@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    11111
+</body>
+</html>
+
+<script>
+function fetchData() {
+    /**
+     * Asynchronous JavaScript And XML
+     */
+    const xhr = new XMLHttpRequest();
+    console.log('readyState---init', xhr.readyState)
+
+    xhr.addEventListener("progress", updateProgress);
+    xhr.addEventListener("load" , transferComplete);
+    xhr.addEventListener("error", transferFailed  );
+    xhr.addEventListener("abort", transferCanceled);
+
+    xhr.onreadystatechange = () => {
+        console.log('readyState', xhr.readyState)
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('responseText', xhr.responseText)
+            }
+        }
+    }
+
+    xhr.onprogress = function () {
+        console.log('LOADING', xhr.readyState); // readyState 为 3
+    };
+
+    xhr.onload = () => {
+        console.log('--loading---', xhr) // readyState 为 4
+    }
+
+    xhr.open('GET', './test.txt', true)
+
+    xhr.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+    );
+
+    xhr.send()
+}
+
+function updateProgress (oEvent) {
+  if (oEvent.lengthComputable) {
+    var percentComplete = oEvent.loaded / oEvent.total * 100;
+    // ...
+  } else {
+    // 总大小未知时不能计算进程信息
+  }
+}
+
+function transferComplete(evt) {
+  console.log("The transfer is complete.");
+}
+
+function transferFailed(evt) {
+  console.log("An error occurred while transferring the file.");
+}
+
+function transferCanceled(evt) {
+  console.log("The transfer has been canceled by the user.");
+}
+
+fetchData()
+
+
+
+</script>
