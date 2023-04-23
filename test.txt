@@ -1,1 +1,6 @@
 123121
+
+从服务器接受事件
+服务器发送事件 API 也就是 EventSource 接口，在你创建一个新的 EventSource 对象的同时，你可以指定一个接受事件的 URI。例如：
+
+const evtSource = new EventSource("ssedemo.php");
